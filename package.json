@@ -8,9 +8,18 @@
     "export": "next export"
   },
   "dependencies": {
+    "@types/jspdf": "^2.0.0",
+    "@types/pdfkit": "^0.13.3",
+    "iconv-lite": "^0.6.3",
+    "jspdf": "^2.5.1",
     "next": "^14.0.1",
     "pdfkit": "^0.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.10.6",
+    "@types/react": "18.2.46",
+    "typescript": "5.3.3"
   }
 }
