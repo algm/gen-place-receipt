@@ -27,11 +27,36 @@ async function readLogo(baseUrl: string): Promise<Buffer> {
   return Buffer.from(arrayBuffer);
 }
 
+async function addPage(
+  doc: jsPDF,
+  baseUrl: string,
+  name: string,
+  amount: number = 10
+) {
+  // add a new page to the document
+  const page = doc.addPage();
+
+  const logo = await readLogo(baseUrl);
+
+  await createHeader(page, logo.toString("base64"));
+
+  const receiptText = `Recibí de ${name} la cantidad de ${amount} euros en concepto de PAPELETA DE SITIO y para que así conste se hace entrega del presente recibo.`;
+
+  page.setFontSize(8);
+
+  // add a paragraph with receipt text, aligned left and max width of the width of an a7 with 5mm margin on each side
+  page.text(receiptText, 5, 20, { maxWidth: 95, align: "left" });
+}
+
 // export an async GET function. This is a convention in NextJS
-export async function GET(req: Request, { params }: GetParams) {
+export async function POST(req: Request, { params }: GetParams) {
+  const reqData = await req.formData();
+  const namesRaw = reqData.get("names") as string;
+
+  console.log({ namesRaw });
+
   // filename for the file that the user is trying to download
   const filename = params.filename;
-  const name = "Pepito Pérez";
   const amount = 10;
 
   // Usage example:
@@ -43,16 +68,12 @@ export async function GET(req: Request, { params }: GetParams) {
 
   // read base url from the request
   const baseUrl = new URL(req.url).origin;
-  const logo = await readLogo(baseUrl);
 
-  await createHeader(doc, logo.toString("base64"));
+  const pagePromises = namesRaw.split("\n").map((name) => {
+    return addPage(doc, baseUrl, name.trim(), amount);
+  });
 
-  const receiptText = `Recibí de ${name} la cantidad de ${amount} euros en concepto de PAPELETA DE SITIO y para que así conste se hace entrega del presente recibo.`;
-
-  doc.setFontSize(8);
-
-  // add a paragraph with receipt text, aligned left and max width of the width of an a7 with 5mm margin on each side
-  doc.text(receiptText, 5, 20, { maxWidth: 95, align: "left" });
+  await Promise.all(pagePromises);
 
   // create a base64 string from the PDF document
   const base64 = doc.output("datauristring");
