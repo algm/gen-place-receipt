@@ -24,7 +24,7 @@ export default function Home() {
         <div className="print:hidden">
           <ReceiptForm onSubmit={setNames} />
         </div>
-        <div className="hidden print:block">
+        <div>
           {names.length > 0 && (
             <ReceiptList names={names} initialNumber={initialNumber} />
           )}
