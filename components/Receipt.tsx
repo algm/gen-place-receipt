@@ -16,7 +16,7 @@ export default function Receipt({
   return (
     <div
       key={name}
-      className="h-[95mm] min-h-[95mm] bg-[url(/frame.svg)] bg-cover bg-[0] p-[15mm] space-y-[1mm] font-serif"
+      className="outline-dashed h-[90mm] outline-1 bg-[url(/frame.svg)] bg-no-repeat bg-cover bg-[0] p-[15mm] space-y-[1mm] font-serif"
     >
       <div className="grid grid-cols-3 gap-[5mm] text-xs justify-center items-center">
         <div className="">
