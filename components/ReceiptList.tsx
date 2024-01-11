@@ -15,12 +15,16 @@ export function ReceiptList({
   names: string[];
   initialNumber: number;
 }) {
-  const chunks = chunkArray(names, 8).map((chunkNames) => {
+  const chunks = chunkArray(names, 8).map((chunkNames, chunkIndex) => {
     return (
       <>
         <div className="gap-0 grid-flow-row row-auto p-5 grid grid-cols-2 min-w-[294mm] min-h-[210mm] w-[285mm] print:p-0 print:w-[285mm] print:min-w-0 print:mb-[55mm]">
           {chunkNames.map((name, index) => (
-            <Receipt key={name} name={name} number={index + initialNumber} />
+            <Receipt
+              key={name}
+              name={name}
+              number={chunkIndex * 8 + index + initialNumber}
+            />
           ))}
         </div>
       </>
