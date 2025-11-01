@@ -33,14 +33,14 @@ export default function Receipt({
         Papeleta de sitio
         <br />
         <span className="text-xl text-center text-gray-700  font-bold uppercase">
-          Semana Santa 2024
+          Semana Santa 2025
         </span>
       </h2>
       <div className="text-sm">
         <p>
           Don/Doña <span className="uppercase font-semibold">{name}</span>{" "}
           acompañará a nuestros Sagrados Titulares en la Estación de Penitencia
-          del Viernes Santo 2024 como{" "}
+          del Viernes Santo 2025 como{" "}
           <span className="font-semibold">
             componente de la Banda de Cabecera del Stmo. Cristo de la Expiración
           </span>
@@ -48,7 +48,16 @@ export default function Receipt({
         </p>
       </div>
       <div className="mt-[3mm] mx-[10mm] flex flex-row text-xs justify-between">
-        <p className="italic">El Fiscal,</p>
+        <div>
+          <p className="italic">El Fiscal,</p>
+          <Image
+            src="/signature.png"
+            alt="firma fiscal"
+            className="grayscale"
+            width={75}
+            height={40}
+          ></Image>
+        </div>
         <div className="justify-end text-right relative">
           <Image
             src="/escudo.svg"
